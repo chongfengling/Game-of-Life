@@ -33,4 +33,9 @@ namespace gol
         }
         std::cout << std::endl;
     }
+
+    bool Grid::get(int row, int col)
+    {
+        return cells[row][col];
+    }
 } // end namespace

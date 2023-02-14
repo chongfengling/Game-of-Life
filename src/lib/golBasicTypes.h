@@ -55,6 +55,8 @@ namespace gol
         Grid(int row, int col);
 
         void print();
+        // get individual cell content
+        bool get(int row, int col);
     private:
         int row;
         int col;
