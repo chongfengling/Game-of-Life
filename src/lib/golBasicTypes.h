@@ -53,6 +53,8 @@ namespace gol
     public:
         // constructor
         Grid(int row, int col);
+
+        void print();
     private:
         int row;
         int col;
