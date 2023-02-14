@@ -61,5 +61,22 @@ TEST_CASE("Grid: set function", "[Grid construct]")
 
     grid.set(1,1,true);
     grid.print();
-    REQUIRE(grid.get(1,1) == true);
+TEST_CASE("Random initialization", "[task1_1]")
+{
+    int row = 5;
+    int col = 6;
+    int num_alive = 10;
+    gol::Grid grid(row, col, num_alive);
+
+    int total_num_alive = 0;
+    for (int i = 0; i < row; ++i)
+    {
+        for (int j = 0; j < col; ++j)
+        {
+            if(grid.get(i,j)){
+                total_num_alive++;
+            }
+        }
+    }
+    REQUIRE(total_num_alive == num_alive);
 }
