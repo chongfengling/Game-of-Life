@@ -57,6 +57,9 @@ namespace gol
         void print();
         // get individual cell content
         bool get(int row, int col);
+        // set individual cell content
+        void set(int row, int col, bool status);
+
     private:
         int row;
         int col;

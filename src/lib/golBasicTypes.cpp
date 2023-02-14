@@ -38,4 +38,10 @@ namespace gol
     {
         return cells[row][col];
     }
+
+    void Grid::set(int row, int col, bool status)
+    {
+        cells[row][col] = status;
+    }
+
 } // end namespace

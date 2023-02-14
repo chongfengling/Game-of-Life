@@ -53,6 +53,13 @@ TEST_CASE("Grid: Construct and get function", "[Grid construct]")
     }
 }
 
-TEST_CASE( "Simple add", "[MyFirstAddFunction]") {
-  REQUIRE( gol::MyFirstAddFunction(1, 2) == 3);
+TEST_CASE("Grid: set function", "[Grid construct]")
+{
+    int row = 5;
+    int col = 5;
+    gol::Grid grid(row, col);
+
+    grid.set(1,1,true);
+    grid.print();
+    REQUIRE(grid.get(1,1) == true);
 }
