@@ -52,7 +52,7 @@ namespace gol
             for (int j = 0; j < col; ++j)
             {
                 // blankspace matters?
-                std::cout << (cells[i][j] ? "o " : "- "); 
+                std::cout << (cells[i][j] ? "o " : "- ");
             }
             std::cout << "\n";
         }

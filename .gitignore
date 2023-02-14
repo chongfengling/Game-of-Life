@@ -22,3 +22,8 @@ build
 # CLion/IntelliJ
 *cmake-build-debug
 .idea/*
+# .exe file
+src/lib/golBasicTypes
+# config of VSCode
+.vscode/settings.json
+.vscode/tasks.json
