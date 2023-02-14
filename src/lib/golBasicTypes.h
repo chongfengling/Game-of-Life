@@ -16,34 +16,48 @@
 #define golBasicTypes_h
 
 /**
-* \defgroup internal internal
-* \brief Internal stuff, not for end-users.
-*/
+ * \defgroup internal internal
+ * \brief Internal stuff, not for end-users.
+ */
 
 /**
-* \defgroup types types
-* \brief Package-wide data types.
-*/
+ * \defgroup types types
+ * \brief Package-wide data types.
+ */
 
 /**
-* \defgroup utilities utilities
-* \brief Groups of c-style functions.
-*/
+ * \defgroup utilities utilities
+ * \brief Groups of c-style functions.
+ */
 
 /**
-* \defgroup applications applications
-* \brief Small, end-user applications, most likely command line.
-*/
+ * \defgroup applications applications
+ * \brief Small, end-user applications, most likely command line.
+ */
 
 /**
-* \file golBasicTypes.h
-* \brief Defines types and typedefs used in this library.
-* \ingroup types
-*/
+ * \file golBasicTypes.h
+ * \brief Defines types and typedefs used in this library.
+ * \ingroup types
+ */
+
+#include <iostream>
+#include <vector>
 
 //! Single namespace for all code in this package
 namespace gol
 {
+
+    class Grid
+    {
+    public:
+        // constructor
+        Grid(int row, int col);
+    private:
+        int row;
+        int col;
+        std::vector<std::vector<bool>> cells;
+    };
 
 } // end namespace
 

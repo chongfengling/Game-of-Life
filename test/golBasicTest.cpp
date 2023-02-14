@@ -18,14 +18,23 @@
 #include <iostream>
 #include <vector>
 
-TEST_CASE( "My first test", "[some group identifier]" ) {
-  int a = 5;
-  REQUIRE( a < 6 );
+TEST_CASE("My first test", "[some group identifier]")
+{
+    int a = 5;
+    REQUIRE(a < 6);
 }
 
-TEST_CASE( "My second test", "[some group identifier]" ) {
-  std::vector<int> a;
-  REQUIRE( a.size() == 0 );
+TEST_CASE("My second test", "[some group identifier]")
+{
+    std::vector<int> a;
+    REQUIRE(a.size() == 0);
+}
+
+TEST_CASE("Simple add", "[MyFirstAddFunction]")
+{
+    REQUIRE(gol::MyFirstAddFunction(1, 2) == 3);
+}
+
 }
 
 TEST_CASE( "Simple add", "[MyFirstAddFunction]") {
