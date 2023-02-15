@@ -42,7 +42,7 @@ TEST_CASE("Grid: Construct and get function", "[Grid construct]")
     int col = 5;
     gol::Grid grid(row, col);
 
-    grid.print();
+    // grid.print();
 
     for (int i = 0; i < row; ++i)
     {
@@ -60,11 +60,10 @@ TEST_CASE("Grid: set function", "[Grid construct]")
     gol::Grid grid(row, col);
 
     grid.set(1, 1, true);
-    grid.print();
     REQUIRE(grid.get(1, 1) == true);
 }
 
-TEST_CASE("Random initialization", "[task1_1]")
+TEST_CASE("Random initialization", "[task1_2]")
 {
     int row = 5;
     int col = 6;
@@ -84,4 +83,16 @@ TEST_CASE("Random initialization", "[task1_1]")
     REQUIRE(total_num_alive == num_alive);
 }
 
-TEST_CASE("")
+TEST_CASE("Different instances different patterns", "[task1_2]")
+{
+    int row = 10;
+    int col = 10;
+    int num_alive = 5;
+    gol::Grid grid1(row, col, num_alive);
+    grid1.print();
+
+    gol::Grid grid2(row, col, num_alive);
+    grid2.print();
+    // two grids could be the same, but the probability can be ignored.
+    REQUIRE(grid1.get_cells() != grid2.get_cells());
+}

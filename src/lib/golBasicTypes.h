@@ -62,6 +62,8 @@ namespace gol
         bool get(int row, int col);
         // set individual cell content
         void set(int row, int col, bool status);
+        // 
+        std::vector<std::vector<bool>> get_cells();
 
     private:
         int row;

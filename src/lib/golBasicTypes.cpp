@@ -27,15 +27,14 @@ namespace gol
             throw std::invalid_argument("The number of alive cells exceed the total number of the grid.");
         }
         // set up random integer generator
-        std::mt19937 rng_mt;
-        std::uniform_int_distribution<> uniform_int_row(0, num_row - 1);
-        std::uniform_int_distribution<> uniform_int_col(0, num_col - 1);
+        std::mt19937 rng_mt{std::random_device{}()};
+        std::uniform_int_distribution<int> uniform_int_row(0, num_row - 1);
+        std::uniform_int_distribution<int> uniform_int_col(0, num_col - 1);
         // count for the number of alive at each stage
         int counts = 0;
         while (counts < num_alive)
         {
             int row = uniform_int_row(rng_mt);
-
             int col = uniform_int_col(rng_mt);
             if (!(cells[row][col]))
             {
@@ -67,6 +66,11 @@ namespace gol
     void Grid::set(int row, int col, bool status)
     {
         cells[row][col] = status;
+    }
+
+    std::vector<std::vector<bool>>  Grid::get_cells()
+    {
+        return cells;
     }
 
 } // end namespace
