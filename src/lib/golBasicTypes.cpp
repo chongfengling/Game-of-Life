@@ -114,4 +114,30 @@ namespace gol
         return cells;
     }
 
+    int Grid::alive_nbr_count(int row_index, int col_index)
+    {
+        // validation
+        // start from 0 or 1?
+        if (row_index > row || col_index > col || row_index < 0 || col_index < 0)
+        {
+            throw std::out_of_range("The input(s) is(are) out of range.");
+        }
+
+        int alive_nbr = 0;
+        for (int i = row_index - 2; i <= row_index; i++)
+        {
+            for (int j = col_index; j <= col_index; j++)
+            {
+                if (i >= 0 & i <= row & j >= 0 & j <= col & (i != row_index || j != col_index))
+                {
+                    if (cells[i][j])
+                    {
+                        alive_nbr++;
+                    }
+                }
+            }
+        }
+
+        return alive_nbr;
+    }
 } // end namespace

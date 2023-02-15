@@ -69,6 +69,9 @@ namespace gol
         void set(int row, int col, bool status);
         // 
         std::vector<std::vector<bool>> get_cells();
+        // fetch alive neighbours
+        int alive_nbr_count(int row_index, int col_index);
+
 
     private:
         int row;
