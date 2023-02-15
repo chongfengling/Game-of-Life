@@ -44,6 +44,47 @@ namespace gol
         }
     }
 
+    Grid::Grid(std::string filepath)
+    {
+        // file stream
+        std::ifstream file(filepath);
+        // single line in the file
+        std::string line;
+        // status of single cell
+        std::string status;
+        // dimensions of the array in the file
+        int row_file = 0;
+        int col_file = 0;
+        // record the position of alive cells
+        std::vector<std::pair<int, int>> alive_cells;
+        // read each line
+        while (std::getline(file, line))
+        {
+            col_file = 0;
+            std::stringstream ssline(line);
+            // split the line by whitespace and iterate single element
+            while (std::getline(ssline, status, ' '))
+            {
+                // if alive, record the position
+                if (status == "o")
+                {
+                    alive_cells.push_back(std::make_pair(row_file, col_file));
+                }
+                col_file++;
+            }
+            row_file++;
+        }
+        // initialize the object
+        row = row_file;
+        col = col_file;
+        cells.resize(row, std::vector<bool>(col, false));
+        // set status of alive cells
+        for (const auto &cell : alive_cells)
+        {
+            cells[cell.first][cell.second] = true;
+        }
+    }
+
     void Grid::print()
     {
         for (int i = 0; i < row; ++i)
@@ -68,7 +109,7 @@ namespace gol
         cells[row][col] = status;
     }
 
-    std::vector<std::vector<bool>>  Grid::get_cells()
+    std::vector<std::vector<bool>> Grid::get_cells()
     {
         return cells;
     }

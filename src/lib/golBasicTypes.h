@@ -44,6 +44,9 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <string>
+#include <fstream>
+#include <sstream>
 
 //! Single namespace for all code in this package
 namespace gol
@@ -56,6 +59,8 @@ namespace gol
         Grid(int row, int col);
         // random constructor
         Grid(int row, int col, int num_alive);
+        // constructor by reading data from a file
+        Grid(std::string filepath);
 
         void print();
         // get individual cell content
