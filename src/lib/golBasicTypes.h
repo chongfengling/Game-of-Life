@@ -65,13 +65,15 @@ namespace gol
         void print();
         // get individual cell content
         bool get(int row, int col);
+        // get number of row and col
+        int get_num_row();
+        int get_num_col();
         // set individual cell content
         void set(int row, int col, bool status);
-        // 
+        //
         std::vector<std::vector<bool>> get_cells();
         // fetch alive neighbours
         int alive_nbr_count(int row_index, int col_index);
-
 
     private:
         int row;

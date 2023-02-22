@@ -104,6 +104,16 @@ namespace gol
         return cells[row][col];
     }
 
+    int Grid::get_num_row()
+    {
+        return row;
+    }
+
+    int Grid::get_num_col()
+    {
+        return col;
+    }
+
     void Grid::set(int row, int col, bool status)
     {
         cells[row][col] = status;
@@ -128,7 +138,7 @@ namespace gol
         {
             for (int j = std::max(col_index - 1, 0); j <= std::min(col_index + 1, col - 1); j++)
             {
-                if(i != row_index || j != col_index)
+                if (i != row_index || j != col_index)
                 {
                     if (cells[i][j])
                     {
@@ -137,7 +147,6 @@ namespace gol
                 }
             }
         }
-
         return alive_nbr;
     }
 } // end namespace
