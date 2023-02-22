@@ -149,4 +149,9 @@ namespace gol
         }
         return alive_nbr;
     }
+
+    void Grid::reset(){
+        cells.assign(row, std::vector<bool>(col, false));
+    }
+
 } // end namespace

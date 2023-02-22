@@ -74,6 +74,8 @@ namespace gol
         std::vector<std::vector<bool>> get_cells();
         // fetch alive neighbours
         int alive_nbr_count(int row_index, int col_index);
+        // reset to all false
+        void reset();
 
     private:
         int row;
