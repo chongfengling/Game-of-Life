@@ -16,7 +16,7 @@ namespace gol
     public:
         Simulator(Grid& input_grid);
         void takeStep();
-        void printGrid(Grid grid);
+        void printGrid();
 
     private:
         Grid& current_grid;

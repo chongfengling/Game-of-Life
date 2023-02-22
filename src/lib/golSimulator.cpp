@@ -30,4 +30,10 @@ namespace gol
             }
         }
     }
+
+    void Simulator::printGrid()
+    {
+        next_grid.print();
+    }
+
 }
