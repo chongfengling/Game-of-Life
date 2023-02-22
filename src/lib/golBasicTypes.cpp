@@ -117,18 +117,18 @@ namespace gol
     int Grid::alive_nbr_count(int row_index, int col_index)
     {
         // validation
-        // start from 0 or 1?
-        if (row_index > row || col_index > col || row_index < 0 || col_index < 0)
+        // index of row /col starts from 0 or row-1/col-1
+        if (row_index >= row || col_index >= col || row_index < 0 || col_index < 0)
         {
             throw std::out_of_range("The input(s) is(are) out of range.");
         }
 
         int alive_nbr = 0;
-        for (int i = row_index - 2; i <= row_index; i++)
+        for (int i = std::max(row_index - 1, 0); i <= std::min(row_index + 1, row - 1); i++)
         {
-            for (int j = col_index; j <= col_index; j++)
+            for (int j = std::max(col_index - 1, 0); j <= std::min(col_index + 1, col - 1); j++)
             {
-                if (i >= 0 & i <= row & j >= 0 & j <= col & (i != row_index || j != col_index))
+                if(i != row_index || j != col_index)
                 {
                     if (cells[i][j])
                     {
