@@ -29,10 +29,16 @@ namespace gol
                 }
             }
         }
+        std::swap(current_grid, next_grid);
+        next_grid.reset();
+        
     }
 
     void Simulator::printGrid()
     {
+        std::cout << "current grid \n";
+        current_grid.print();
+        std::cout << "next grid \n";
         next_grid.print();
     }
 
