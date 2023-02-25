@@ -26,6 +26,10 @@ int main(int argc, char **argv)
     int steps;
     app.add_option("--steps", steps, "Number of generations to simulate")->check(CLI::NonNegativeNumber)->required();
 
+    // examples
+    // /workspaces/game-of-life-chongfengling/build/bin/golSimulator -f --input '/workspaces/game-of-life-chongfengling/test/data/glider.txt' --steps 10
+    // /workspaces/game-of-life-chongfengling/build/bin/golSimulator -r --rows 10 --cols 10 --alive 10 --steps 2
+
     CLI11_PARSE(app, argc, argv);
     return 0;
 }
