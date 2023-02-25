@@ -22,6 +22,9 @@ int main(int argc, char **argv)
     app.add_option("--rows", rows, "Number of rows for random initial values")->check(CLI::PositiveNumber)->needs(use_random)->excludes(use_file);
     app.add_option("--cols", cols, "Number of columns for random initial values")->check(CLI::PositiveNumber)->needs(use_random)->excludes(use_file);
     app.add_option("--alive", alive, "Number of initial alive cells for random initial values")->check(CLI::NonNegativeNumber)->needs(use_random)->excludes(use_file);
+    // specify the number of generating steps
+    int steps;
+    app.add_option("--steps", steps, "Number of generations to simulate")->check(CLI::NonNegativeNumber)->required();
 
     CLI11_PARSE(app, argc, argv);
     return 0;
