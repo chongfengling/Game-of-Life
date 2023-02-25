@@ -17,6 +17,11 @@ int main(int argc, char **argv)
     // specify the input file path
     std::string input_file;
     app.add_option("-i,--input", input_file, "Specify the input file path")->check(CLI::ExistingFile)->needs(use_file)->excludes(use_random);
+    // specify the parameters for randomly creation
+    int rows, cols, alive;
+    app.add_option("--rows", rows, "Number of rows for random initial values")->check(CLI::PositiveNumber)->needs(use_random)->excludes(use_file);
+    app.add_option("--cols", cols, "Number of columns for random initial values")->check(CLI::PositiveNumber)->needs(use_random)->excludes(use_file);
+    app.add_option("--alive", alive, "Number of initial alive cells for random initial values")->check(CLI::NonNegativeNumber)->needs(use_random)->excludes(use_file);
 
     CLI11_PARSE(app, argc, argv);
     return 0;
