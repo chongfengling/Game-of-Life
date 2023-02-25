@@ -14,6 +14,9 @@ int main(int argc, char **argv)
     auto use_random = app.add_flag("-r,--random", "Create Grid randomly");
     use_file->excludes(use_random);
     use_random->excludes(use_file);
+    // specify the input file path
+    std::string input_file;
+    app.add_option("-i,--input", input_file, "Specify the input file path")->check(CLI::ExistingFile)->needs(use_file)->excludes(use_random);
 
     CLI11_PARSE(app, argc, argv);
     return 0;
