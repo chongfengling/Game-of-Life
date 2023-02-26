@@ -2,6 +2,23 @@
 #include <golExceptionMacro.h>
 #include "CLI11.hpp"
 #include <iostream>
+#include <chrono>
+#include <thread>
+
+void generation(gol::Simulator &sml, int steps)
+{
+    std::cout << "The initial grid is" << std::endl;
+    sml.printGrid();
+    std::cout << "Start to generate ......\n" << "*****************" << std::endl;
+    for (int i = 0; i < steps; ++i)
+    {
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::cout << "Current generations: " << i+1 << std::endl;
+        sml.takeStep();
+        sml.printGrid();
+        std::cout << "*****************" << std::endl;
+    }
+}
 
 int main(int argc, char **argv)
 {
@@ -39,12 +56,18 @@ int main(int argc, char **argv)
         std::cout << "Create Grid from a file.\n"
                   << "Filepath: " << input_file << "\n"
                   << "Number of generations: " << steps << std::endl;
+        gol::Grid grid_file(input_file);
+        gol::Simulator sml_file(grid_file);
+        generation(sml_file, steps);
     }
     else if (use_random) // when create Grid randomly
     {
         std::cout << "Create Grid randomly.\n"
                   << "Rows = " << rows << ", Cols = " << cols << ", Alive = " << alive <<  "\n"
                   << "Number of generations: " << steps << std::endl;
+        gol::Grid grid_random(rows, cols, alive);
+        gol::Simulator sml_random(grid_random);
+        generation(sml_random, steps);
     }
     else // when unidentified argv
     {
