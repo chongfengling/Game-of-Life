@@ -33,5 +33,23 @@ int main(int argc, char **argv)
     // /workspaces/game-of-life-chongfengling/build/bin/golSimulator -r --rows 10 --cols 10 --alive 10 --steps 2
 
     CLI11_PARSE(app, argc, argv);
+    // Implement application
+    if (use_file) // when create Grid from a file
+    {
+        std::cout << "Create Grid from a file.\n"
+                  << "Filepath: " << input_file << "\n"
+                  << "Number of generations: " << steps << std::endl;
+    }
+    else if (use_random) // when create Grid randomly
+    {
+        std::cout << "Create Grid randomly.\n"
+                  << "Rows = " << rows << ", Cols = " << cols << ", Alive = " << alive <<  "\n"
+                  << "Number of generations: " << steps << std::endl;
+    }
+    else // when unidentified argv
+    {
+        return 3;
+    };
+
     return 0;
 }
