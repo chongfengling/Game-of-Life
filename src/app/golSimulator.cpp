@@ -9,11 +9,12 @@ void generation(gol::Simulator &sml, int steps)
 {
     std::cout << "The initial grid is" << std::endl;
     sml.printGrid();
-    std::cout << "Start to generate ......\n" << "*****************" << std::endl;
+    std::cout << "Start to generate ......\n"
+              << "*****************" << std::endl;
     for (int i = 0; i < steps; ++i)
     {
         std::this_thread::sleep_for(std::chrono::seconds(1));
-        std::cout << "Current generations: " << i+1 << std::endl;
+        std::cout << "Current generations: " << i + 1 << std::endl;
         sml.takeStep();
         sml.printGrid();
         std::cout << "*****************" << std::endl;
@@ -33,6 +34,11 @@ int main(int argc, char **argv)
     auto use_random_opt = app.add_flag("-r,--random", use_random, "Create Grid randomly");
     use_file_opt->excludes(use_random_opt);
     use_random_opt->excludes(use_file_opt);
+    // find stationary patterns
+    bool find_stationary = false;
+    auto find_stationary_opt = app.add_flag("-s, --stationary", find_stationary, "Whether find the stationary pattern for a random Grid");
+    find_stationary_opt->excludes(use_file_opt);
+    find_stationary_opt->needs(use_random_opt);
     // specify the input file path
     std::string input_file;
     app.add_option("-i,--input", input_file, "Specify the input file path")->check(CLI::ExistingFile)->needs(use_file_opt)->excludes(use_random_opt);
@@ -62,17 +68,39 @@ int main(int argc, char **argv)
     }
     else if (use_random) // when create Grid randomly
     {
-        std::cout << "Create Grid randomly.\n"
-                  << "Rows = " << rows << ", Cols = " << cols << ", Alive = " << alive <<  "\n"
-                  << "Number of generations: " << steps << std::endl;
-        gol::Grid grid_random(rows, cols, alive);
-        gol::Simulator sml_random(grid_random);
-        generation(sml_random, steps);
+        if (!find_stationary) // iterate generations
+        {
+            std::cout << "Create Grid randomly.\n"
+                      << "Rows = " << rows << ", Cols = " << cols << ", Alive = " << alive << "\n"
+                      << "Number of generations: " << steps << std::endl;
+            gol::Grid grid_random(rows, cols, alive);
+            gol::Simulator sml_random(grid_random);
+            generation(sml_random, steps);
+        }
+        else // find stationary patterns
+        {
+            gol::Grid grid_stationary(rows, cols, alive);
+            gol::Simulator sml_stationary(grid_stationary);
+            std::cout << "The initial grid is" << std::endl;
+            sml_stationary.printGrid();
+            std::cout << "Start to generate ......\n"
+                      << "*****************" << std::endl;
+            for (int i = 0; i < steps; ++i)
+            {
+                if (!(sml_stationary.get_last_grid() == sml_stationary.get_current_grid()))
+                {
+                    std::this_thread::sleep_for(std::chrono::seconds(1));
+                    std::cout << "Current generations: " << i + 1 << std::endl;
+                    sml_stationary.takeStep();
+                    sml_stationary.printGrid();
+                }
+                else
+                {
+                    std::cout << "No change in the last generation: " << i + 1 << std::endl;
+                    break;
+                }
+            };
+        }
+        return 0;
     }
-    else // when unidentified argv
-    {
-        return 3;
-    };
-
-    return 0;
 }
