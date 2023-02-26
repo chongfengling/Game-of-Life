@@ -2,7 +2,7 @@
 
 namespace gol
 {
-    Simulator::Simulator(Grid &input_grid) : current_grid(input_grid), next_grid(input_grid.get_num_col(), input_grid.get_num_row()) {}
+    Simulator::Simulator(Grid &input_grid) : current_grid(input_grid), next_grid(input_grid.get_num_col(), input_grid.get_num_row()), last_grid(input_grid.get_num_col(), input_grid.get_num_row()) {}
 
     void Simulator::takeStep()
     {
@@ -29,17 +29,30 @@ namespace gol
                 }
             }
         }
+        std::swap(last_grid, current_grid);
         std::swap(current_grid, next_grid);
         next_grid.reset();
-        
     }
 
     void Simulator::printGrid()
     {
         std::cout << "current grid \n";
         current_grid.print();
-        std::cout << "next grid \n";
-        next_grid.print();
+    }
+
+    std::vector<std::vector<bool>> Simulator::get_last_grid()
+    {
+        return last_grid.get_cells();
+    }
+
+    std::vector<std::vector<bool>> Simulator::get_current_grid()
+    {
+        return current_grid.get_cells();
+    }
+
+    std::vector<std::vector<bool>> Simulator::get_next_grid()
+    {
+        return next_grid.get_cells();
     }
 
 }

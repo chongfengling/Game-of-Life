@@ -14,12 +14,16 @@ namespace gol
     class Simulator
     {
     public:
-        Simulator(Grid& input_grid);
+        Simulator(Grid &input_grid);
         void takeStep();
         void printGrid();
+        std::vector<std::vector<bool>> get_last_grid();
+        std::vector<std::vector<bool>> get_current_grid();
+        std::vector<std::vector<bool>> get_next_grid();
 
     private:
-        Grid& current_grid;
+        Grid last_grid;
+        Grid &current_grid;
         Grid next_grid;
     };
 }
