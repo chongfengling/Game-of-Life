@@ -1,4 +1,4 @@
-#include "golSimulator.h"
+#include "golGeneration.h"
 
 namespace gol
 {

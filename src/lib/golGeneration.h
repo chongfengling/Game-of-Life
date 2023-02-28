@@ -1,5 +1,5 @@
-#ifndef golSimulator_h
-#define golSimulator_h
+#ifndef golGeneration_h
+#define golGeneration_h
 
 #include <iostream>
 #include <vector>

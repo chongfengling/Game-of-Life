@@ -18,12 +18,12 @@ set(PHAS0100ASSIGNMENT1_LIBRARY_SRCS
   golBasicTypes.cpp
   golMyFunctions.cpp
   golException.cpp
-  golSimulator.cpp
+  golGeneration.cpp
 )
 
 set(PHAS0100ASSIGNMENT1_LIBRARY_HDRS
   golExceptionMacro.h
-  golSimulator.h
+  golGeneration.h
 )
 
 add_library(${PHAS0100ASSIGNMENT1_LIBRARY_NAME} ${PHAS0100ASSIGNMENT1_LIBRARY_HDRS} ${PHAS0100ASSIGNMENT1_LIBRARY_SRCS})
