@@ -48,6 +48,10 @@ namespace gol
     {
         // file stream
         std::ifstream file(filepath);
+        if (!file)
+        {
+            throw std::runtime_error("File does not exist");
+        }
         // single line in the file
         std::string line;
         // status of single cell
