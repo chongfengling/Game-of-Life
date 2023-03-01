@@ -49,7 +49,7 @@ int main(int argc, char **argv)
     app.add_option("--alive", alive, "Number of initial alive cells for random initial values")->check(CLI::NonNegativeNumber)->needs(use_random_opt)->excludes(use_file_opt);
     // specify the number of generating steps
     int steps;
-    app.add_option("--steps", steps, "Number of generations to simulate")->check(CLI::NonNegativeNumber)->required();
+    app.add_option("--steps", steps, "Number of generations to simulate")->check(CLI::NonNegativeNumber)->required(use_file || use_random);
 
     // examples
     // /workspaces/game-of-life-chongfengling/build/bin/golSimulator -f --input '/workspaces/game-of-life-chongfengling/test/data/glider.txt' --steps 10
@@ -64,7 +64,7 @@ int main(int argc, char **argv)
     }
 
     // Implement application
-    if (use_file) // when create Grid from a file
+    if ((use_file) && (input_file != "") && (steps > 0)) // when create Grid from a file
     {
         std::cout << "Create Grid from a file.\n"
                   << "Filepath: " << input_file << "\n"
@@ -73,7 +73,7 @@ int main(int argc, char **argv)
         gol::Simulator sml_file(grid_file);
         generation(sml_file, steps);
     }
-    else if (use_random) // when create Grid randomly
+    else if ((use_random) && (rows > 0) && (cols > 0) && (alive >= 0) && (steps > 0)) // when create Grid randomly
     {
         if (!find_stationary) // iterate generations
         {
@@ -109,5 +109,10 @@ int main(int argc, char **argv)
             };
         }
         return 0;
+    }
+    else
+    {
+        std::cerr << "Error: arguments are unacceptable, please refer to the help information '-h'." << std::endl;
+        return 1;
     }
 }
