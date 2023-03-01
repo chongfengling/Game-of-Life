@@ -97,15 +97,15 @@ TEST_CASE("Different instances different patterns", "[task1_2]")
 
 TEST_CASE("Check if the file path is available", "[task1_3]")
 {
-    std::string filepath = "/workspaces/game-of-life-chongfengling/test/data/glider.txt";
-    std::string unknown_filepath = "/workspaces/game-of-life-chongfengling/test/data/Untitled.txt";
+    std::string filepath = "../../test/data/glider.txt";
+    std::string unknown_filepath = "../../test/data/Untitled.txt";
     REQUIRE_NOTHROW(gol::Grid(filepath));
     REQUIRE_THROWS(gol::Grid(unknown_filepath));
 }
 
 TEST_CASE("The loaded grid is consistent", "[task1_3]")
 {
-    std::string filepath = "/workspaces/game-of-life-chongfengling/test/data/glider.txt";
+    std::string filepath = "../../test/data/glider.txt";
     gol::Grid grid(filepath);
 
     // check the size of grid is consistent
@@ -138,13 +138,13 @@ TEST_CASE("The loaded grid is consistent", "[task1_3]")
 
 TEST_CASE("Check if the patterns in the file are acceptable.", "[task1_3]")
 {
-    std::string wrong_pattern_filepath = "/workspaces/game-of-life-chongfengling/test/data/unacceptable_patterns.txt";
+    std::string wrong_pattern_filepath = "../../test/data/unacceptable_patterns.txt";
     REQUIRE_THROWS(gol::Grid(wrong_pattern_filepath));
 }
 
 TEST_CASE("Check if the number of live neighbours fetched correctly.", "[task1_4]")
 {
-    std::string filepath = "/workspaces/game-of-life-chongfengling/test/data/still_lifes.txt";
+    std::string filepath = "../../test/data/still_lifes.txt";
     gol::Grid grid(filepath);
 
     // out of range
@@ -173,7 +173,7 @@ TEST_CASE("Check if the number of live neighbours fetched correctly.", "[task1_4
 
 TEST_CASE("Check the 1st role of gol.", "[task2_1]")
 {
-    std::string filepath = "/workspaces/game-of-life-chongfengling/test/data/glider.txt";
+    std::string filepath = "../../test/data/glider.txt";
     gol::Grid grid(filepath);
     gol::Simulator sml(grid);
     sml.takeStep();
@@ -190,7 +190,7 @@ TEST_CASE("Check the 1st role of gol.", "[task2_1]")
 
 TEST_CASE("Check the 2nd role of gol.", "[task2_1]")
 {
-    std::string filepath = "/workspaces/game-of-life-chongfengling/test/data/glider.txt";
+    std::string filepath = "../../test/data/glider.txt";
     gol::Grid grid(filepath);
     gol::Simulator sml(grid);
     sml.takeStep();
@@ -211,7 +211,7 @@ TEST_CASE("Check the 2nd role of gol.", "[task2_1]")
 
 TEST_CASE("Check the 3rd role of gol.", "[task2_1]")
 {
-    std::string filepath = "/workspaces/game-of-life-chongfengling/test/data/input.txt";
+    std::string filepath = "../../test/data/input.txt";
     gol::Grid grid(filepath);
     gol::Simulator sml(grid);
     sml.takeStep();
