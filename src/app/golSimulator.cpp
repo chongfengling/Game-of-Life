@@ -14,7 +14,7 @@ void generation(gol::Simulator &sml, int steps)
     for (int i = 0; i < steps; ++i)
     {
         std::this_thread::sleep_for(std::chrono::seconds(1));
-        std::cout << "Current generations: " << i + 1 << std::endl;
+        std::cout << "Current generations: " << i + 1 << " of " << steps << std::endl;
         sml.takeStep();
         sml.printGrid();
         std::cout << "*****************" << std::endl;
@@ -46,7 +46,7 @@ int main(int argc, char **argv)
     int rows, cols, alive;
     app.add_option("--rows", rows, "Number of rows for random initial values")->check(CLI::PositiveNumber)->needs(use_random_opt)->excludes(use_file_opt);
     app.add_option("--cols", cols, "Number of columns for random initial values")->check(CLI::PositiveNumber)->needs(use_random_opt)->excludes(use_file_opt);
-    app.add_option("--alive", alive, "Number of initial alive cells for random initial values")->check(CLI::NonNegativeNumber)->needs(use_random_opt)->excludes(use_file_opt);
+    app.add_option("--alive", alive, "Number of initial alive cells for random initial values, default is 0.")->check(CLI::NonNegativeNumber)->needs(use_random_opt)->excludes(use_file_opt);
     // specify the number of generating steps
     int steps;
     app.add_option("--steps", steps, "Number of generations to simulate")->check(CLI::NonNegativeNumber)->required(use_file || use_random);
@@ -103,10 +103,12 @@ int main(int argc, char **argv)
                 }
                 else
                 {
-                    std::cout << "No change in the last generation: " << i + 1 << std::endl;
-                    break;
+                    std::cout << "No change in the last generation: " << i << ", the final still life pattern is:" << std::endl;
+                    sml_stationary.printGrid();
+                    return 0;
                 }
-            };
+            }
+            std::cout << "No stationary patterns founded in " << steps << " steps." << std::endl;
         }
         return 0;
     }
