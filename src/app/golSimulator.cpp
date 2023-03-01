@@ -1,5 +1,5 @@
-#include <golMyFunctions.h>
-#include <golExceptionMacro.h>
+#include <golBasicTypes.h>
+#include <golGeneration.h>
 #include "CLI11.hpp"
 #include <iostream>
 #include <chrono>
@@ -59,10 +59,10 @@ int main(int argc, char **argv)
     app.add_option("--alive", alive, "Number of initial alive cells for random initial values, default is 0.")->check(CLI::NonNegativeNumber)->needs(use_random_opt)->excludes(use_file_opt);
     // specify the number of generating steps
     int steps;
-    app.add_option("--steps", steps, "Number of generations to simulate")->check(CLI::NonNegativeNumber)->required(use_file || use_random);
+    app.add_option("--steps", steps, "Number of generations to simulate")->check(CLI::NonNegativeNumber);
     // when find stationary patterns, how many random grids created.
     int num_grid;
-    app.add_option("--grids", num_grid, "number of random grids created to find their stationary patterns.")->needs(find_stationary_opt)->excludes(use_file_opt);
+    app.add_option("--grids", num_grid, "number of random grids created to find their stationary patterns.")->check(CLI::NonNegativeNumber)->needs(find_stationary_opt)->excludes(use_file_opt);
 
     CLI11_PARSE(app, argc, argv);
 
