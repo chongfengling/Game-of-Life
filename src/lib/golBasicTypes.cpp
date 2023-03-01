@@ -74,6 +74,14 @@ namespace gol
                 {
                     alive_cells.push_back(std::make_pair(row_file, col_file));
                 }
+                else if (status == "-")
+                {
+                }
+                else
+                {
+                    throw std::runtime_error("unacceptable patterns in the file.");
+                }
+
                 col_file++;
             }
             row_file++;
