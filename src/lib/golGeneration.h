@@ -14,7 +14,7 @@ namespace gol
     class Simulator
     {
     public:
-        Simulator(Grid &input_grid);
+        Simulator(Grid input_grid);
         void takeStep();
         void printGrid();
         std::vector<std::vector<bool>> get_last_grid();
@@ -23,7 +23,7 @@ namespace gol
 
     private:
         Grid last_grid;
-        Grid &current_grid;
+        Grid current_grid;
         Grid next_grid;
     };
 }
