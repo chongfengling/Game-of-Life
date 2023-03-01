@@ -62,7 +62,7 @@ TEST_CASE("Grid: set function", "[task1_1]")
     REQUIRE(grid.get(1, 1) == true);
 }
 
-TEST_CASE("The total number of alive cells are correct", "[task1_2]")
+TEST_CASE("The total number of alive/dead cells are correct", "[task1_2]")
 {
     int row = 5;
     int col = 6;
@@ -70,6 +70,7 @@ TEST_CASE("The total number of alive cells are correct", "[task1_2]")
     gol::Grid grid(row, col, num_alive);
 
     int total_num_alive = 0;
+    int total_num_dead = 0;
     for (int i = 0; i < row; ++i)
     {
         for (int j = 0; j < col; ++j)
@@ -78,9 +79,16 @@ TEST_CASE("The total number of alive cells are correct", "[task1_2]")
             {
                 total_num_alive++;
             }
+            else
+            {
+                total_num_dead++;
+            }
         }
     }
+    // number of alive cells are correct
     REQUIRE(total_num_alive == num_alive);
+    // number of cells are correct
+    REQUIRE((total_num_alive + total_num_dead) == (row * col));
 }
 
 TEST_CASE("Different instances different patterns", "[task1_2]")
