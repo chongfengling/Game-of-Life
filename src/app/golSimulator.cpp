@@ -21,6 +21,16 @@ void generation(gol::Simulator &sml, int steps)
     }
 }
 
+/*
+usage:
+1. simulate a grid create from a file or randomly within some specific steps
+    1. created from a file
+        - /workspaces/game-of-life-chongfengling/build/bin/golSimulator -f --input '/workspaces/game-of-life-chongfengling/test/data/glider.txt' --steps 10
+    2. create randomly
+        - /workspaces/game-of-life-chongfengling/build/bin/golSimulator -r --rows 7 --cols 7 --alive 15 --steps 4
+2. find stationary patterns for a number of RANDOM grids within some specific steps
+    - /workspaces/game-of-life-chongfengling/build/bin/golSimulator -r --rows 4 --cols 4 --alive 5 --steps 5 -s --grids 10
+*/
 int main(int argc, char **argv)
 {
     CLI::App app("Game of Life Simulation");
@@ -50,10 +60,9 @@ int main(int argc, char **argv)
     // specify the number of generating steps
     int steps;
     app.add_option("--steps", steps, "Number of generations to simulate")->check(CLI::NonNegativeNumber)->required(use_file || use_random);
-
-    // examples
-    // /workspaces/game-of-life-chongfengling/build/bin/golSimulator -f --input '/workspaces/game-of-life-chongfengling/test/data/glider.txt' --steps 10
-    // /workspaces/game-of-life-chongfengling/build/bin/golSimulator -r --rows 10 --cols 10 --alive 10 --steps 2
+    // when find stationary patterns, how many random grids created.
+    int num_grid;
+    app.add_option("--grids", num_grid, "number of random grids created to find their stationary patterns.")->needs(find_stationary_opt)->excludes(use_file_opt);
 
     CLI11_PARSE(app, argc, argv);
 
@@ -67,17 +76,19 @@ int main(int argc, char **argv)
     if ((use_file) && (input_file != "") && (steps > 0)) // when create Grid from a file
     {
         std::cout << "Create Grid from a file.\n"
+                  << "Do generations. \n"
                   << "Filepath: " << input_file << "\n"
                   << "Number of generations: " << steps << std::endl;
         gol::Grid grid_file(input_file);
         gol::Simulator sml_file(grid_file);
         generation(sml_file, steps);
     }
-    else if ((use_random) && (rows > 0) && (cols > 0) && (alive >= 0) && (steps > 0)) // when create Grid randomly
+    else if ((use_random) && (rows > 0) && (cols > 0) && (alive >= 0) && (steps > 0) && (num_grid > 0)) // when create Grid randomly
     {
         if (!find_stationary) // iterate generations
         {
             std::cout << "Create Grid randomly.\n"
+                      << "Do generations. \n"
                       << "Rows = " << rows << ", Cols = " << cols << ", Alive = " << alive << "\n"
                       << "Number of generations: " << steps << std::endl;
             gol::Grid grid_random(rows, cols, alive);
@@ -86,29 +97,49 @@ int main(int argc, char **argv)
         }
         else // find stationary patterns
         {
-            gol::Grid grid_stationary(rows, cols, alive);
-            gol::Simulator sml_stationary(grid_stationary);
-            std::cout << "The initial grid is" << std::endl;
-            sml_stationary.printGrid();
-            std::cout << "Start to generate ......\n"
-                      << "*****************" << std::endl;
-            for (int i = 0; i < steps; ++i)
+            int num_stationary_patterns = 0;
+            for (int n = 1; n < num_grid + 1; ++n)
             {
-                if (!(sml_stationary.get_last_grid() == sml_stationary.get_current_grid()))
+                gol::Grid grid_stationary(rows, cols, alive);
+                gol::Simulator sml_stationary(grid_stationary);
+                std::cout << "Do find stationary patterns for the "
+                          << n
+                          << "th random grid\n"
+                          << "The initial grid is" << std::endl;
+                sml_stationary.printGrid();
+                std::cout << "Start to generate ......\n"
+                          << "*****************" << std::endl;
+                bool stationary_exist = false;
+                for (int i = 0; i < steps; ++i)
                 {
-                    std::this_thread::sleep_for(std::chrono::seconds(1));
-                    std::cout << "Current generations: " << i + 1 << std::endl;
-                    sml_stationary.takeStep();
-                    sml_stationary.printGrid();
+                    if (!(sml_stationary.get_last_grid() == sml_stationary.get_current_grid()))
+                    {
+                        // std::this_thread::sleep_for(std::chrono::seconds(1));
+                        // std::cout << "Current generations: " << i + 1 << std::endl;
+                        sml_stationary.takeStep();
+                        // sml_stationary.printGrid();
+                    }
+                    else
+                    {
+                        std::cout << "Stationary pattern founded in the "
+                                  << i
+                                  << "th generations, the final still life pattern of the "
+                                  << n
+                                  << "th random grid is:" << std::endl;
+                        sml_stationary.printGrid();
+                        stationary_exist = true;
+                        std::cout << "\n---------------------gird " << n << " finished----------------------------" << std::endl;
+                        ++num_stationary_patterns;
+                        break;
+                    }
                 }
-                else
+                if (!stationary_exist)
                 {
-                    std::cout << "No change in the last generation: " << i << ", the final still life pattern is:" << std::endl;
-                    sml_stationary.printGrid();
-                    return 0;
+                    std::cout << "No stationary patterns founded in " << steps << " steps.";
+                    std::cout << "\n---------------------gird " << n << " finished----------------------------" << std::endl;
                 }
             }
-            std::cout << "No stationary patterns founded in " << steps << " steps." << std::endl;
+            std::cout << num_stationary_patterns << " stationary patterns founded among " << num_grid << " random grids." << std::endl;
         }
         return 0;
     }
