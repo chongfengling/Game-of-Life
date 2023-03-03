@@ -22,6 +22,7 @@ namespace gol
         std::vector<std::vector<bool>> get_next_grid();
 
     private:
+        // three grid to store three status
         Grid last_grid;
         Grid current_grid;
         Grid next_grid;

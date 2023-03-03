@@ -34,7 +34,7 @@ namespace gol
         next_grid.reset();
     }
 
-    void Simulator::printGrid()
+    void Simulator::printGrid() // print the current grid
     {
         std::cout << "current grid \n";
         current_grid.print();

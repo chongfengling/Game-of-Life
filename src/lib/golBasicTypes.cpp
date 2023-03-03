@@ -16,10 +16,11 @@
 
 namespace gol
 {
+    // create a grid without alive cells 
     Grid::Grid(int num_row, int num_col) : row(num_row), col(num_col), cells(row, std::vector<bool>(col, false))
     {
     }
-
+    // create a grid with random alive cells
     Grid::Grid(int num_row, int num_col, int num_alive) : Grid(num_row, num_col)
     {
         if (num_row * num_col < num_alive)
@@ -43,11 +44,12 @@ namespace gol
             }
         }
     }
-
+    // create a grid from a filepath
     Grid::Grid(std::string filepath)
     {
         // file stream
         std::ifstream file(filepath);
+        // validation
         if (!file)
         {
             throw std::runtime_error("File does not exist");
@@ -67,6 +69,7 @@ namespace gol
             col_file = 0;
             std::stringstream ssline(line);
             // split the line by whitespace and iterate single element
+            // only support two specific patterns : "-", "o"
             while (std::getline(ssline, status, ' '))
             {
                 // if alive, record the position
@@ -139,7 +142,7 @@ namespace gol
     int Grid::alive_nbr_count(int row_index, int col_index)
     {
         // validation
-        // index of row /col starts from 0 or row-1/col-1
+        // index of row /col starts from 0 to row-1/col-1
         if (row_index >= row || col_index >= col || row_index < 0 || col_index < 0)
         {
             throw std::out_of_range("The input(s) is(are) out of range.");
@@ -161,7 +164,7 @@ namespace gol
         }
         return alive_nbr;
     }
-
+    // kill all cells
     void Grid::reset()
     {
         cells.assign(row, std::vector<bool>(col, false));

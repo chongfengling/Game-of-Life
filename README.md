@@ -39,7 +39,8 @@ This application can be accessed by running the executable file `./build/bin/gol
 ```
 ./build/bin/golSimulator // list options
 ./build/bin/golSimulator -h // list options
-
+```
+```
 /* (Output of `-h` flag)
 Game of Life Simulation
 Usage: /workspaces/game-of-life-chongfengling/build/bin/golSimulator [OPTIONS]
@@ -71,16 +72,22 @@ Options:
 ### Create a grid from a existed file
 ```
 // Example: Import the grid in file `glider.tet` and do 10 generations.
+```
+```
 ./build/bin/golSimulator -f --input '../test/data/glider.txt' --steps 10
 ```
 ### Create a grid randomly by some parameters
 ```
 // Example: Create a grid with 7 X 7 shape and 15 alive cells randomly and do 4 generations
+```
+```
 ./build/bin/golSimulator -r --rows 7 --cols 7 --alive 15 --steps 4
 ```
 ## Finding stationary patterns for a number of RANDOM grids within some specific steps
 ```
 // Example: find stationary patterns for 10 random grids that has 4*4 size and 5 alive cells within 5 generations
+```
+```
 ./build/bin/golSimulator -r --rows 4 --cols 4 --alive 5 --steps 5 -s --grids 10
 ```
 # Results
