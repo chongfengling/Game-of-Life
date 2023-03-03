@@ -74,7 +74,7 @@ Options:
 // Example: Import the grid in file `glider.tet` and do 10 generations.
 ```
 ```
-./build/bin/golSimulator -f --input '../test/data/glider.txt' --steps 10
+./build/bin/golSimulator -f --input './test/data/glider.txt' --steps 10
 ```
 ### Create a grid randomly by some parameters
 ```
